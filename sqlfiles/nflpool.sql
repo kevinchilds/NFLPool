@@ -8,8 +8,9 @@ CREATE TABLE users(
 
 CREATE TABLE pools(
 	id serial PRIMARY KEY 
-	,name varchar(200) NOT NULL 
-	,user_id_fk int REFERENCES users(id) NOT NULL 
+	,pool_name varchar(200) NOT NULL 
+	,user_created_fk int REFERENCES users(id) NOT NULL 
+	,user_in_pool_fk int REFERENCES users(id) NOT NULL
 );
 
 
@@ -25,14 +26,23 @@ CREATE TABLE poolsheets(
 CREATE TABLE picks(
 	id serial PRIMARY KEY
 	,user_id_fk int REFERENCES users(id) NOT NULL 
-	,poolsheets_id_fk int REFERENCES poolsheets(id) NOT NULL 
+	,poolsheet_id_fk int REFERENCES poolsheets(id) NOT NULL 
 );
 
-CREATE TABLE game(
+CREATE TABLE games(
 	id serial PRIMARY KEY
 	,game_date timestamp NOT NULL
 	,home_team varchar(100) NOT NULL 
 	,away_team varchar(100) NOT NULL 
 	,betting_on varchar(100) NOT NULL 
-	,picks_id_fk int REFERENCES picks(id) NOT NULL 
+	,pick_id_fk int REFERENCES picks(id) NOT NULL 
 );
+
+DROP TABLE games;
+
+
+
+
+
+
+DROP TABLE games, picks, poolsheets, pools, users;
