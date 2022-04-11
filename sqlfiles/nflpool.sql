@@ -13,8 +13,26 @@ CREATE TABLE pools(
 );
 
 
-CREATE TABLE teams(
+CREATE TABLE poolsheets(
 	id serial PRIMARY KEY
-	,name varchar(200) NOT NULL
-	,logo varchar(400) NOT NULL
+	,date_of_first_game timestamp NOT NULL
+	,date_of_last_game timestamp NOT NULL
+	,created_date timestamp DEFAULT now()
+	,pool_id_fk int REFERENCES pools(id) NOT NULL 
+);
+
+
+CREATE TABLE picks(
+	id serial PRIMARY KEY
+	,user_id_fk int REFERENCES users(id) NOT NULL 
+	,poolsheets_id_fk int REFERENCES poolsheets(id) NOT NULL 
+);
+
+CREATE TABLE game(
+	id serial PRIMARY KEY
+	,game_date timestamp NOT NULL
+	,home_team varchar(100) NOT NULL 
+	,away_team varchar(100) NOT NULL 
+	,betting_on varchar(100) NOT NULL 
+	,picks_id_fk int REFERENCES picks(id) NOT NULL 
 );

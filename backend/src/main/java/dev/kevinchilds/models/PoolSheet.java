@@ -1,7 +1,6 @@
 package dev.kevinchilds.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -26,22 +24,24 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "pools")
-public class Pool {
-
+@Table(name = "poolsheets")
+public class PoolSheet {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "pool_name", nullable = false)
-    private String name;
+    @Column(name = "date_of_first_game", nullable = false)
+    private Date dateOfFirstGame;
+
+    @Column(name = "date_of_last_game", nullable = false)
+    private Date dateOfLastGame;
+
+
+    @Column(name = "created_date", nullable = false)
+    private Date dateCreated;
 
     @ManyToOne
-    @JoinColumn(name = "user_created_fk", nullable = false)
-    User userCreated;
-
-    @ManyToOne
-    @JoinColumn(name = "user_in_pool_fk", nullable = false)
-    User userInPool;
-
+    @JoinColumn(name = "pool_id_fk", nullable = false)
+    private Pool pool;
 }
